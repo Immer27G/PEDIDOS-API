@@ -48,7 +48,7 @@ const login = async (req, res) => {
       return res.status(400).json({ error: 'Email y password son obligatorios' })
     }
 
-    // Buscar usuario
+   
     const resultado = await pool.query('SELECT * FROM usuarios WHERE email = $1', [email])
     const usuario = resultado.rows[0]
 
@@ -56,7 +56,7 @@ const login = async (req, res) => {
       return res.status(401).json({ error: 'Credenciales inválidas' })
     }
 
-    // Comparar contraseña
+   
     const passwordValido = await bcrypt.compare(password, usuario.password)
     if (!passwordValido) {
       return res.status(401).json({ error: 'Credenciales inválidas' })
